@@ -7,8 +7,8 @@ void addTask(int taskIdentification, std::string taskDescription);
 void listTasks(int tasksQuantity);
 
 void removeTask(int taskIdentification, int tasksQuantity);
-;
-//void doneTask(std::string task);
+
+void doneTask(int taskIdentification);
 
 
 #endif
