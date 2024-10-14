@@ -2,74 +2,52 @@
 
 int main()
 {
-    std::cout << "This is a task manager =)" << '\n';
-    std::cout << "Enter the quantity of tasks:" << '\n';
+    std::cout << "This is a task manager made in CPP" << '\n';
 
-    int tasksQuantity {};
-    std::cin >> tasksQuantity;
-
-    std::cin.ignore();
-
-    for (int taskIdentification {} ; taskIdentification < tasksQuantity ; taskIdentification++)
-    {
-        std::cout << "Enter the task number " << taskIdentification << '/' << tasksQuantity << ':' <<'\n';
-        std::string taskDescription {};
-        std::getline(std::cin, taskDescription);
-        addTask(taskIdentification, taskDescription);
-    }
+    int taskTracker {0};
 
     while (true)
     {
-        std::cout << "\nDone! options(add a task: 1, list the tasks: 2, remove a task: 3, exit: 0)";
-        int option {};
+        std::cout << "\nType \'add\' to add a task, \'remove\' to remove a task, \'done\' to mark a task and \'exit\' to exit\n";
+        std::string option {};
         std::cin >> option;
         std::cin.ignore();
 
-        switch (option){
-            case 0:
-            {
-                return 0;
-            }
-            case 1:
-            {
-                tasksQuantity += 1;
-                std::cout << "Enter the task number " << tasksQuantity << ":" << '\n';
-
-                std::string taskDescription {};
-                std::getline(std::cin, taskDescription);
-                addTask(tasksQuantity, taskDescription);
-                break;
-            }
-            case 2:
-            {
-                listTasks(tasksQuantity);
-                break;
-            }
-            case 3:
-            {
-                std::cout << "Enter the task number:" << '\n';
-
-                int taskIdentification {};
-                std::cin >> taskIdentification;
-                removeTask(taskIdentification, tasksQuantity);
-                taskIdentification -= 1;
-                break;
-            }
-            case 4:
-            {
-                std::cout << "Enter the task number:" << '\n';
-
-                int taskIdentification {};
-                std::cin >> taskIdentification;
-                doneTask(taskIdentification);
-                break;
-            }
-            default:
-            {
-                std::cout << "U didn't choose a existent option, please try again!";
-                break;
-            }
+        if (option == "exit")
+        {
+            std::cout << "\nExiting...";
+            return 0;
         }
+        else if (option == "add")
+        {
+            std::cout << "Enter the task content: ";
+
+            std::string taskDescription {};
+            std::getline(std::cin, taskDescription);
+            addTask(taskTracker, taskDescription);
+            taskTracker++;
+        }
+        else if (option == "remove")
+        {
+            std::cout << "Enter the task id to remove: " << '\n';
+
+            int taskIdentification {};
+            std::cin >> taskIdentification;
+            removeTask(taskIdentification);
+        }
+        else if (option == "done")
+        {
+            std::cout << "Enter the task id to mark as done: " << '\n';
+
+            int taskIdentification {};
+            std::cin >> taskIdentification;
+            doneTask(taskIdentification);
+        }
+        else
+        {
+            std::cout << "Invalid option, please try again!";
+        }
+        listTasks();
     }
 }
 

@@ -1,44 +1,47 @@
 #include "taskManager.h"
 #include <iostream>
 
-struct task
+struct taskType
 {
-    int taskIdentification {};
-    std::string taskDescription {};
-    std::string taskState {};
+    int identification {};
+    std::string description {};
+    std::string state {};
 };
 
-task tasks[10]; // Tenho que aprender structs / arrays
+taskType tasks[100];
 
 void addTask(int taskIdentification, std::string taskDescription) {
-    tasks[taskIdentification].taskIdentification = taskIdentification;
-    tasks[taskIdentification].taskDescription = taskDescription;
-    tasks[taskIdentification].taskState = "not done";
+    tasks[taskIdentification] = {taskIdentification, taskDescription, "not done"};
+
+    std::cout << "Task added succesfully!\n";
 }
 
-void listTasks(int tasksQuantity)
+void listTasks()
 {
-    for (int taskIdentification = 0 ; taskIdentification < tasksQuantity ; ++taskIdentification)
+    for (int taskIdentification = 0 ; taskIdentification <= sizeof(tasks) ; ++taskIdentification)
     {
-        task task = tasks[taskIdentification];
-        std::cout << task.taskIdentification << " " << task.taskDescription << " " << task.taskState <<'\n';
+        taskType task = tasks[taskIdentification];
+
+        if (!tasks[taskIdentification].description.empty())
+        {
+            std::cout << task.identification << " " << task.description << " " << task.state;
+        }
     }
 }
 
-void removeTask(int taskIdentification, int tasksQuantity)
+void removeTask(int taskIdentification)
 {
-    for (; taskIdentification <= tasksQuantity ; ++taskIdentification)
+    if (!tasks[taskIdentification].description.empty())
     {
-        tasks[taskIdentification] = tasks[taskIdentification + 1];
-
-        tasks[taskIdentification].taskIdentification = taskIdentification;
-        tasks[taskIdentification + 1].taskDescription = "";
-        tasks[taskIdentification + 1].taskState = "";
+        std::cout << "Task not found!\n";
     }
 
+    tasks[taskIdentification] = {0, "", ""};
+
+    std::cout << "Task removed succesfully!\n";
 }
 
 void doneTask(int taskIdentification)
 {
-    tasks[taskIdentification].taskState = "done";
+    tasks[taskIdentification].state = "done";
 }

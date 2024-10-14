@@ -4,9 +4,9 @@
 
 void addTask(int taskIdentification, std::string taskDescription);
 
-void listTasks(int tasksQuantity);
+void listTasks();
 
-void removeTask(int taskIdentification, int tasksQuantity);
+void removeTask(int taskIdentification);
 
 void doneTask(int taskIdentification);
 
